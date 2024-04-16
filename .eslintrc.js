@@ -24,5 +24,11 @@ module.exports = {
     '@typescrpt-eslint/next-line prettier/prettier': 'off',
     '@typescrpt-eslint/linebreak-style': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };

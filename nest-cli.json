@@ -1,8 +1,50 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/sapo-backend/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/sapo-backend/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/sapo-backend",
+  "projects": {
+    "sapo-backend": {
+      "type": "application",
+      "root": "apps/sapo-backend",
+      "entryFile": "main",
+      "sourceRoot": "apps/sapo-backend/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/sapo-backend/tsconfig.app.json"
+      }
+    },
+    "subjects": {
+      "type": "application",
+      "root": "apps/subjects",
+      "entryFile": "main",
+      "sourceRoot": "apps/subjects/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/subjects/tsconfig.app.json"
+      }
+    },
+    "teachers": {
+      "type": "application",
+      "root": "apps/teachers",
+      "entryFile": "main",
+      "sourceRoot": "apps/teachers/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/teachers/tsconfig.app.json"
+      }
+    },
+    "students": {
+      "type": "application",
+      "root": "apps/students",
+      "entryFile": "main",
+      "sourceRoot": "apps/students/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/students/tsconfig.app.json"
+      }
+    }
   }
 }
