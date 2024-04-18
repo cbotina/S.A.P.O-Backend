@@ -10,12 +10,10 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateSubjectDto } from '../../../../apps/subjects/src/dto/create-subject.dto';
-import { UpdateSubjectDto } from '../../../../apps/subjects/src/dto/update-subject.dto';
+import { CreateSubjectDto } from '../../../subjects/src/dto/create-subject.dto';
+import { UpdateSubjectDto } from '../../../subjects/src/dto/update-subject.dto';
 import { lastValueFrom } from 'rxjs';
 
 @Controller('subjects')
@@ -23,13 +21,13 @@ export class SubjectsController {
   constructor(@Inject('SUBJECTS_MICROSERVICE') private client: ClientProxy) {}
 
   @Get()
-  findAll() {
+  findAllSubject() {
     const pattern = 'findAllSubjects';
     return this.client.send(pattern, {});
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOneSubject(@Param('id', ParseIntPipe) id: number) {
     const pattern = 'findOneSubject';
     const subject = this.client.send(pattern, id);
     if ((await lastValueFrom(subject)) == null) throw new NotFoundException();
@@ -59,8 +57,8 @@ export class SubjectsController {
   }
 
   @Delete()
-  deleteAll() {
-    const pattern = 'removeAll';
+  deleteAllSubjects() {
+    const pattern = 'removeAllSubjects';
     return this.client.send(pattern, {});
   }
 }

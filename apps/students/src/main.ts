@@ -7,8 +7,14 @@ async function bootstrap() {
     StudentsModule,
     {
       transport: Transport.TCP,
+      options: { port: 3001 },
     },
   );
+
+  console.log(
+    ` ✅ Students Microservice running on ${process.env.NODE_ENV} mode ✅`,
+  );
+
   await app.listen();
 }
 bootstrap();

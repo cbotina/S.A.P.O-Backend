@@ -3,10 +3,10 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { beforeEach } from 'node:test';
-import { CreateSubjectDto } from '../../subjects/src/dto/create-subject.dto';
 import { IsNotEmptyObject, isEmpty } from 'class-validator';
+import { CreateTeacherDto } from '../../../apps/teachers/src/dto/create-teacher.dto';
 
-describe('Microservicio Materias', () => {
+describe('Microservicio Profesores', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -34,58 +34,58 @@ describe('Microservicio Materias', () => {
   });
 
   beforeEach(async () => {
-    await request(app.getHttpServer()).delete('/subjects');
+    await request(app.getHttpServer()).delete('/teachers');
   });
 
   afterEach(async () => {
-    await request(app.getHttpServer()).delete('/subjects');
+    await request(app.getHttpServer()).delete('/teachers');
   });
 
-  describe('HU-001 - Crear Materia', () => {
+  describe('HU-001 - Crear Profesor', () => {
     describe('CID-1 Cuando se ingresen todos los campos requeridos', () => {
-      const dto: CreateSubjectDto = {
-        name: 'Ingenieria de Software I',
-        description: 'Mas que una materia',
-        nCredits: 3,
+      const dto: CreateTeacherDto = {
+        name: 'Carlos',
+        lastName: 'Botina',
+        email: 'carlosal.botina@umariana.edu.co',
       };
 
       it('Entonces, se debe agregar la materia a la base de datos', async () => {
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
         await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dto)
           .expect(201);
         await request(app.getHttpServer())
-          .get('/subjects')
+          .get('/teachers')
           .expect(IsNotEmptyObject);
       });
     });
 
     describe('CID-2 Cuando se ingresan campos vacios', () => {
       it('Entonces, se debe mostrar un mensaje de alerta indicando que el campo es requerido', async () => {
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
 
-        const dtoWithoutNCredits = {
-          name: 'Ingenieria de Software I',
-          description: 'Mas que una materia',
+        const dtoWithoutLastName = {
+          name: 'Carlos',
+          email: 'carlosal.botina@umariana.edu.co',
         };
 
         await request(app.getHttpServer())
-          .post('/subjects')
-          .send(dtoWithoutNCredits)
+          .post('/teachers')
+          .send(dtoWithoutLastName)
           .expect(400)
           .expect((res) => {
             const data = res.body;
-            expect(data.message[0]).toContain('nCredits should not be empty');
+            expect(data.message[0]).toContain('lastName should not be empty');
           });
 
         const dtoWithoutName = {
-          description: 'Mas que una materia',
-          nCredits: 3,
+          lastName: 'Botina',
+          email: 'carlosal.botina@umariana.edu.co',
         };
 
         await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dtoWithoutName)
           .expect(400)
           .expect((res) => {
@@ -93,37 +93,35 @@ describe('Microservicio Materias', () => {
             expect(data.message[0]).toContain('name should not be empty');
           });
 
-        const dtoWithoutDescription = {
-          name: 'Ingenieria de Software I',
-          nCredits: 3,
+        const dtoWithoutEmail = {
+          name: 'Carlos',
+          lastName: 'Botina',
         };
 
         await request(app.getHttpServer())
-          .post('/subjects')
-          .send(dtoWithoutDescription)
+          .post('/teachers')
+          .send(dtoWithoutEmail)
           .expect(400)
           .expect((res) => {
             const data = res.body;
-            expect(data.message[0]).toContain(
-              'description should not be empty',
-            );
+            expect(data.message[0]).toContain('email should not be empty');
           });
 
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
       });
     });
 
     describe('CID-3 Cuando algun campo supere el limite de caracteres', () => {
       it('Entonces, se debe mostrar un mensaje de alerta indicando que los campos en cuestion han excedido el limite de caracteres', async () => {
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
-        const dtoWithLongName: CreateSubjectDto = {
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
+        const dtoWithLongName: CreateTeacherDto = {
           name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-          nCredits: 3,
-          description: 'Mas que una materia',
+          lastName: 'Botina',
+          email: 'carlosal.botina@umariana.edu.co',
         };
 
         await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dtoWithLongName)
           .expect(400)
           .expect((res) => {
@@ -133,110 +131,92 @@ describe('Microservicio Materias', () => {
             );
           });
 
-        const dtoWithLongDescription: CreateSubjectDto = {
+        const dtoWithLongLastName: CreateTeacherDto = {
           name: 'Ingenieria de Software I',
-          nCredits: 3,
-          description:
+          email: 'carlossal.botina@umariana.edu.co',
+          lastName:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
         };
 
         await request(app.getHttpServer())
-          .post('/subjects')
-          .send(dtoWithLongDescription)
+          .post('/teachers')
+          .send(dtoWithLongLastName)
           .expect(400)
           .expect((res) => {
             const data = res.body;
             expect(data.message[0]).toContain(
-              'description must be shorter than or equal to 150 characters',
+              'lastName must be shorter than or equal to 50 characters',
             );
           });
 
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
       });
     });
   });
 
-  describe('HU-002 - Editar Materia', () => {
-    const dto: CreateSubjectDto = {
-      name: 'Ingenieria de Software I',
-      description: 'Mas que una materia',
-      nCredits: 3,
+  describe('HU-002 - Editar Profesor', () => {
+    const dto: CreateTeacherDto = {
+      name: 'Carlos',
+      lastName: 'Botina',
+      email: 'carlosal.botina@umariana.edu.co',
     };
 
     describe('CID-1 Cuando se ingresen los datos completos', () => {
       it('Entonces, se debe editar la materia en la base de datos', async () => {
         const id = await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dto)
           .expect(201)
           .then((res) => res.body.id);
 
         await request(app.getHttpServer())
-          .patch(`/subjects/${id}`)
-          .send({ name: 'Ingenieria de Software II' })
+          .patch(`/teachers/${id}`)
+          .send({ name: 'Carlos Alberto' })
           .expect(200);
 
         await request(app.getHttpServer())
-          .get('/subjects')
+          .get('/teachers')
           .expect(200)
           .expect((res) => {
             const data = res.body;
-            expect(data[0].name).toEqual('Ingenieria de Software II');
+            expect(data[0].name).toEqual('Carlos Alberto');
           });
       });
     });
     describe('CID-2 Cuando se ingresen datos vacios', () => {
       it('Entonces, se debe mostrar un mensaje de alerta por cada campo requerido', async () => {
         const id = await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dto)
           .expect(201)
           .then((res) => res.body.id);
 
         await request(app.getHttpServer())
-          .patch(`/subjects/${id}`)
-          .send({ name: '', description: '', nCredits: null })
+          .patch(`/teachers/${id}`)
+          .send({ name: '', lastName: '', email: '' })
           .expect(400);
-
-        await request(app.getHttpServer()).get(`/subjects/${id}`).expect(200);
       });
     });
-    describe('CID-3 Cuando algun campo supere el limite de caracteres', () => {
-      it('Entonces, se debe mostrar un mensaje de alerta indicando que los campos en cuestion han excedido el limite de caracteres', async () => {
-        const id = await request(app.getHttpServer())
-          .post('/subjects')
-          .send(dto)
-          .expect(201)
-          .then((res) => res.body.id);
 
-        await request(app.getHttpServer())
-          .delete(`/subjects/${id}`)
-          .expect(204);
+    describe('HU-003 - Eliminar materia', () => {
+      const dto: CreateTeacherDto = {
+        name: 'Carlos',
+        lastName: 'Botina',
+        email: 'carlosal.botina@umariana.edu.co',
+      };
 
-        await request(app.getHttpServer()).get(`/subjects/${id}`).expect(404);
-      });
-    });
-  });
-
-  describe('HU-003 - Eliminar materia', () => {
-    const dto: CreateSubjectDto = {
-      name: 'Ingenieria de Software I',
-      description: 'Mas que una materia',
-      nCredits: 3,
-    };
-    describe('CID-1 Cuando se ingresen datos vacios', () => {
       it('Entonces, se debe eliminar la materia de la base de datos', async () => {
         const id = await request(app.getHttpServer())
-          .post('/subjects')
+          .post('/teachers')
           .send(dto)
           .expect(201)
           .then((res) => res.body.id);
 
         await request(app.getHttpServer())
-          .delete(`/subjects/${id}`)
+          .delete(`/teachers/${id}`)
           .expect(204);
 
-        await request(app.getHttpServer()).get('/subjects').expect(isEmpty);
+        await request(app.getHttpServer()).get('/teachers').expect(isEmpty);
       });
     });
   });

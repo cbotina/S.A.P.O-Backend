@@ -1,4 +1,4 @@
-import { Controller, NotFoundException } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
@@ -7,11 +7,6 @@ import { UpdateSubjectDto } from './dto/update-subject.dto';
 @Controller()
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
-
-  @MessagePattern('getHello')
-  getHello() {
-    return 'Hello World from subjects microservice!';
-  }
 
   @MessagePattern('createSubject')
   create(@Payload() createSubjectDto: CreateSubjectDto) {
@@ -38,7 +33,7 @@ export class SubjectsController {
     return this.subjectsService.remove(id);
   }
 
-  @MessagePattern('removeAll')
+  @MessagePattern('removeAllSubjects')
   removeAll() {
     return this.subjectsService.removeAll();
   }
