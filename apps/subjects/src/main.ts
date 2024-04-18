@@ -10,9 +10,11 @@ async function bootstrap() {
     },
   );
 
-  console.log('========================================================');
-  console.log(`✅ Microservice running on ${process.env.NODE_ENV} mode`);
-  console.log('========================================================');
+  console.log('==================================================');
+  console.log(
+    ` ✅ Subjects Microservice running on ${process.env.NODE_ENV} mode ✅`,
+  );
+  console.log('==================================================');
   await app.listen();
 }
 bootstrap();

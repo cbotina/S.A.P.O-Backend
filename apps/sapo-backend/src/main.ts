@@ -12,9 +12,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  console.log('==================');
-  console.log(process.env.NODE_ENV);
-  console.log('==================');
+
   await app.listen(3000);
 }
 
