@@ -8,6 +8,11 @@ import { UpdateSubjectDto } from './dto/update-subject.dto';
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
+  @MessagePattern('getHello')
+  getHello() {
+    return 'Hello World from subjects microservice!';
+  }
+
   @MessagePattern('createSubject')
   create(@Payload() createSubjectDto: CreateSubjectDto) {
     return this.subjectsService.create(createSubjectDto);

@@ -7,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): Observable<any> {
-    return this.appService.getAllSubject();
+  getHello(): string {
+    return this.appService.getHello();
   }
 }
