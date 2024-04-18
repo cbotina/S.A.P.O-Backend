@@ -37,4 +37,9 @@ export class SubjectsController {
   remove(@Payload() id: number) {
     return this.subjectsService.remove(id);
   }
+
+  @MessagePattern('removeAll')
+  removeAll() {
+    return this.subjectsService.removeAll();
+  }
 }

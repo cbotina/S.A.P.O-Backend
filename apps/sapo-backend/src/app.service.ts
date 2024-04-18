@@ -14,4 +14,8 @@ export class AppService {
     const payload = [1, 2, 3];
     return this.client.send(pattern, payload);
   }
+
+  sendMessage(pattern: string, payload?: any) {
+    return this.client.send(pattern, payload);
+  }
 }

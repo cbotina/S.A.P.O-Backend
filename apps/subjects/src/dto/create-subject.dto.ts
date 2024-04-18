@@ -1,15 +1,17 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 
 export class CreateSubjectDto {
   @IsString()
+  @MaxLength(50)
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
   @IsNumber()
+  @IsNotEmpty()
   nCredits: number;
 
-  @IsNotEmpty()
   @IsString()
+  @MaxLength(150)
+  @IsNotEmpty()
   description: string;
 }

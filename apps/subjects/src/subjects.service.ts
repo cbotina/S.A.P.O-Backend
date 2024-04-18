@@ -26,13 +26,16 @@ export class SubjectsService {
 
   async update(id: number, updateSubjectDto: UpdateSubjectDto): Promise<void> {
     await this.subjectsRepository.update({ id }, updateSubjectDto);
+    return null;
   }
 
   async remove(id: number): Promise<void> {
     await this.subjectsRepository.delete(id);
+    return null;
   }
 
   async removeAll(): Promise<void> {
     await this.subjectsRepository.delete({});
+    return null;
   }
 }
