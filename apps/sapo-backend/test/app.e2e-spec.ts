@@ -7,9 +7,12 @@ import {
 } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { SubjectsService } from 'apps/subjects/src/subjects.service';
+import { beforeEach } from 'node:test';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let subjectsService: SubjectsService;
 
   beforeAll(async () => {
     console.log(process.env.NODE_ENV);
@@ -34,6 +37,14 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     await app.close();
+  });
+
+  beforeEach(async () => {
+    await subjectsService.removeAll();
+  });
+
+  afterEach(async () => {
+    await subjectsService.removeAll();
   });
 
   it('/ (GET)', async () => {

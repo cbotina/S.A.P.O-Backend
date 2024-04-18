@@ -31,4 +31,8 @@ export class SubjectsService {
   async remove(id: number): Promise<void> {
     await this.subjectsRepository.delete(id);
   }
+
+  async removeAll(): Promise<void> {
+    await this.subjectsRepository.delete({});
+  }
 }

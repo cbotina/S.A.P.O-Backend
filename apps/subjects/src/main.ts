@@ -9,6 +9,10 @@ async function bootstrap() {
       transport: Transport.TCP,
     },
   );
+
+  console.log('========================================================');
+  console.log(`✅ Microservice running on ${process.env.NODE_ENV} mode`);
+  console.log('========================================================');
   await app.listen();
 }
 bootstrap();
