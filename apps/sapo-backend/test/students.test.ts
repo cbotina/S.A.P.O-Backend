@@ -41,7 +41,7 @@ describe('Microservicio Estudiantes', () => {
     await request(app.getHttpServer()).delete('/students');
   });
 
-  describe('HU-001 - Crear Estudiante', () => {
+  describe('HU-004 - Crear Estudiante', () => {
     describe('CID-1 Cuando se ingresen todos los campos requeridos', () => {
       const dto: CreateStudentDto = {
         name: 'Carlos',
@@ -154,7 +154,7 @@ describe('Microservicio Estudiantes', () => {
     });
   });
 
-  describe('HU-002 - Editar Estudiante', () => {
+  describe('HU-005 - Editar Estudiante', () => {
     const dto: CreateStudentDto = {
       name: 'Carlos',
       lastName: 'Botina',
@@ -198,7 +198,7 @@ describe('Microservicio Estudiantes', () => {
       });
     });
 
-    describe('HU-003 - Eliminar materia', () => {
+    describe('HU-006 - Eliminar materia', () => {
       const dto: CreateStudentDto = {
         name: 'Carlos',
         lastName: 'Botina',

@@ -57,7 +57,7 @@ export class TeachersController {
   }
 
   @Delete()
-  deleteAllSubjects() {
+  deleteAllTeachers() {
     const pattern = 'removeAllTeachers';
     return this.client.send(pattern, {});
   }

@@ -5,6 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { SubjectsController } from './controllers/subjects.controller';
 import { StudentsController } from './controllers/students.controller';
 import { TeachersController } from './controllers/teachers.controller';
+import { EnrollmentsController } from './controllers/enrollments.controller';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { TeachersController } from './controllers/teachers.controller';
       {
         name: 'SUBJECTS_MICROSERVICE',
         transport: Transport.TCP,
-        options: { port: 3000 },
+        options: { port: 3003 },
       },
       {
         name: 'STUDENTS_MICROSERVICE',
@@ -24,6 +25,11 @@ import { TeachersController } from './controllers/teachers.controller';
         transport: Transport.TCP,
         options: { port: 3002 },
       },
+      {
+        name: 'ENROLLMENTS_MICROSERVICE',
+        transport: Transport.TCP,
+        options: { port: 3004 },
+      },
     ]),
   ],
   controllers: [
@@ -31,6 +37,7 @@ import { TeachersController } from './controllers/teachers.controller';
     SubjectsController,
     StudentsController,
     TeachersController,
+    EnrollmentsController,
   ],
   providers: [AppService],
 })

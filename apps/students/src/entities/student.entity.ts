@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Subject } from 'apps/subjects/src/entities/subject.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Student {
@@ -13,4 +14,7 @@ export class Student {
 
   @Column()
   email: string;
+
+  @ManyToMany(() => Subject, (subject) => subject.students)
+  subjects: Subject[];
 }

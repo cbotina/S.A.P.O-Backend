@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   Inject,
   NotFoundException,
   Param,
@@ -15,6 +16,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { CreateSubjectDto } from '../../../subjects/src/dto/create-subject.dto';
 import { UpdateSubjectDto } from '../../../subjects/src/dto/update-subject.dto';
 import { lastValueFrom } from 'rxjs';
+import { UpdateSubjectTeacherDto } from 'apps/subjects/src/dto/update-subject-teacher.dto';
 
 @Controller('subjects')
 export class SubjectsController {
@@ -47,6 +49,22 @@ export class SubjectsController {
   ) {
     const pattern = 'updateSubject';
     return this.client.send(pattern, { id, ...dto });
+  }
+
+  @Patch(':id/teacher')
+  async updateSubjectTeacher(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateSubjectTeacherDto,
+  ) {
+    const pattern = 'updateSubjectTeacher';
+    //return this.client.send(pattern, { id, ...dto });
+
+    await lastValueFrom(this.client.send(pattern, { id, ...dto })).catch(
+      (msg) => {
+        throw new HttpException(msg.message, msg.status, {});
+      },
+    );
+    return { message: 'Teacher assigned successfully' };
   }
 
   @Delete(':id')

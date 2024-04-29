@@ -1,18 +1,18 @@
 import { NestFactory } from '@nestjs/core';
+import { EnrollmentsModule } from './enrollments.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { SubjectsModule } from './subjects.module';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    SubjectsModule,
+    EnrollmentsModule,
     {
       transport: Transport.TCP,
-      options: { port: 3003 },
+      options: { port: 3004 },
     },
   );
 
   console.log(
-    ` ✅ Subjects Microservice running on ${process.env.NODE_ENV} mode ✅`,
+    ` ✅ Enrollemnts Microservice running on ${process.env.NODE_ENV} mode ✅`,
   );
 
   await app.listen();

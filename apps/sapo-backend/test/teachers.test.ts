@@ -41,7 +41,7 @@ describe('Microservicio Profesores', () => {
     await request(app.getHttpServer()).delete('/teachers');
   });
 
-  describe('HU-001 - Crear Profesor', () => {
+  describe('HU-007 - Crear Profesor', () => {
     describe('CID-1 Cuando se ingresen todos los campos requeridos', () => {
       const dto: CreateTeacherDto = {
         name: 'Carlos',
@@ -154,7 +154,7 @@ describe('Microservicio Profesores', () => {
     });
   });
 
-  describe('HU-002 - Editar Profesor', () => {
+  describe('HU-008 - Editar Profesor', () => {
     const dto: CreateTeacherDto = {
       name: 'Carlos',
       lastName: 'Botina',
@@ -198,7 +198,7 @@ describe('Microservicio Profesores', () => {
       });
     });
 
-    describe('HU-003 - Eliminar materia', () => {
+    describe('HU-009 - Eliminar materia', () => {
       const dto: CreateTeacherDto = {
         name: 'Carlos',
         lastName: 'Botina',

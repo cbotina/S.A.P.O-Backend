@@ -54,6 +54,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "enrollments": {
+      "type": "application",
+      "root": "apps/enrollments",
+      "entryFile": "main",
+      "sourceRoot": "apps/enrollments/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/enrollments/tsconfig.app.json"
+      }
     }
   }
 }
