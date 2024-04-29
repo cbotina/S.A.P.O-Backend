@@ -26,7 +26,10 @@ export class SubjectsService {
   }
 
   findOne(id: number): Promise<Subject | null> {
-    return this.subjectsRepository.findOneBy({ id });
+    return this.subjectsRepository.findOne({
+      where: { id },
+      relations: { teacher: true },
+    });
   }
 
   async update(id: number, updateSubjectDto: UpdateSubjectDto): Promise<void> {

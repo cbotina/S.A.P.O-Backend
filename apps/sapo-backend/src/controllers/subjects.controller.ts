@@ -16,7 +16,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { CreateSubjectDto } from '../../../subjects/src/dto/create-subject.dto';
 import { UpdateSubjectDto } from '../../../subjects/src/dto/update-subject.dto';
 import { lastValueFrom } from 'rxjs';
-import { UpdateSubjectTeacherDto } from 'apps/subjects/src/dto/update-subject-teacher.dto';
+import { UpdateSubjectTeacherDto } from '../../../../apps/subjects/src/dto/update-subject-teacher.dto';
 
 @Controller('subjects')
 export class SubjectsController {

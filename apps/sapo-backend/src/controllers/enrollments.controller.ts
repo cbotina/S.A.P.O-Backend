@@ -1,6 +1,6 @@
 import { Body, Controller, HttpException, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateEnrollmentDto } from 'apps/enrollments/src/dto/create_enrollment.dto';
+import { CreateEnrollmentDto } from '../../../../apps/enrollments/src/dto/create_enrollment.dto';
 import { lastValueFrom } from 'rxjs';
 
 @Controller('enrollments')

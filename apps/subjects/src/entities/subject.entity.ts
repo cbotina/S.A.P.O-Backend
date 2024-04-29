@@ -23,7 +23,7 @@ export class Subject {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ default: 0 })
   semester: number;
 
   @ManyToOne(() => Teacher, (teacher) => teacher.subjects)

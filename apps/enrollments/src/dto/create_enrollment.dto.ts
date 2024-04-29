@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  ValidateNested,
+  isNumber,
+} from 'class-validator';
 import { number } from 'joi';
 
 export class CreateEnrollmentDto {
@@ -8,7 +15,10 @@ export class CreateEnrollmentDto {
   studentId: number;
 
   @IsArray()
-  //   @ValidateNested({ each: true })
-  @Type(() => number)
+  @ArrayNotEmpty()
+  @IsNumber(
+    {},
+    { each: true, message: 'Every element of subjectsId must be a number' },
+  )
   subjectsId: number[];
 }
